@@ -12,12 +12,55 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = "users";
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = "id";
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = "integer";
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+    protected $dateFormat = "U";
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        "name", "email", "password",
     ];
 
     /**
@@ -26,7 +69,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        "password", "remember_token",
     ];
 
     /**
@@ -35,6 +78,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        "email_verified_at" => "datetime",
     ];
 }

@@ -13,8 +13,24 @@ class CreateVehicleModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vehicle_models', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create("vehicle_models", function (Blueprint $table) {
+            $table->bigIncrements("id");
+
+            $table->string("name");
+            
+            $table->bigInteger("brand_id")
+                ->unsigned();
+
+            $table->foreign("brand_id")
+                ->references("id")->on("brands");
+
+            $table->bigInteger("user_id")
+                ->unsigned();
+
+            $table->foreign("user_id")
+                ->references("id")
+                ->on("users");
+
             $table->timestamps();
         });
     }
@@ -26,6 +42,6 @@ class CreateVehicleModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicle_models');
+        Schema::dropIfExists("vehicle_models");
     }
 }
