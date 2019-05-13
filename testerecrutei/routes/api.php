@@ -19,8 +19,27 @@ Route::middleware("auth:api")->get(
     }
 );
 
-Route::apiResource("brand", "APIControllers\BrandController")
-    ->middleware("auth:api");
+
+Route::get("/brand", "APIControllers\BrandController@index")
+    ->middleware("auth:api", "scope:brand-list")->name("brand.index");
+
+Route::post("/brand", "APIControllers\BrandController@store")
+    ->middleware("auth:api", "scope:brand-store")->name("brand.store");
+
+Route::get("/brand/{brand}", "APIControllers\BrandController@show")
+    ->middleware("auth:api", "scope:brand-show")->name("brand.show");
+
+Route::put("/brand/{brand}", "APIControllers\BrandController@update")
+    ->middleware("auth:api", "scope:brand-update")->name("brand.update");
+
+Route::patch("/brand/{brand}", "APIControllers\BrandController@update")
+    ->middleware("auth:api", "scope:brand-update")->name("brand.update");
+
+Route::delete("/brand", "APIControllers\BrandController@destroy")
+    ->middleware("auth:api", "scope:brand-destroy")->name("brand.destroy");
+
+
+
 
 Route::apiResource("user", "APIControllers\UserController")
     ->middleware("auth:api");
@@ -29,4 +48,4 @@ Route::apiResource("vehiclemodel", "APIControllers\VehicleModelController")
     ->middleware("auth:api");
 
 Route::apiResource("vehicle", "APIControllers\VehicleController")
-    ->middleware("auth:api");
+    ->middleware("scope:vehicle-list");
